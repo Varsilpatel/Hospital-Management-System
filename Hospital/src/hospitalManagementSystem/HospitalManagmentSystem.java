@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class HospitalManagmentSystem {
@@ -89,7 +90,7 @@ public class HospitalManagmentSystem {
 						System.out.print("Failed to book appoinment");
 					}
 				}
-				catch(Exception e) {
+				catch(SQLException e) {
 					e.printStackTrace();
 				}
 			}
@@ -103,7 +104,7 @@ public class HospitalManagmentSystem {
 	}
 	
 	public static boolean checkDoctorAvaibility(int doctorID, String date, Connection con) {
-		String query = "select count(*) from appoiments where (DoctorID=? and Appoinment_Date=?)";
+		String query = "select count(*) from appoiments where (DoctorID=? and Appoiment_Date=?)";
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setInt(1,doctorID);
@@ -119,7 +120,7 @@ public class HospitalManagmentSystem {
 				}
 			}
 		}
-		catch(Exception e) {
+		catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
